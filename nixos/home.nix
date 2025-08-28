@@ -15,7 +15,13 @@
     wget
     curl
     htop
-    neofetch
+    neofetch  
+    waybar
+    rofi-wayland
+    hyprpaper
+    kitty
   ];
+
+  xdg.configFile."hypr/hyprland.conf".source = ./hypr/hyprland.conf;
 }
 
