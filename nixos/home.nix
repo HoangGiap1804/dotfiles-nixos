@@ -20,8 +20,7 @@
     rofi-wayland
     hyprpaper
     kitty
+    stow
   ];
-
-  xdg.configFile."hypr/hyprland.conf".source = ./hypr/hyprland.conf;
 }
 
