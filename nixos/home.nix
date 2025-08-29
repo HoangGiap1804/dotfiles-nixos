@@ -7,7 +7,6 @@
   # Đặt version để tránh cảnh báo
   home.stateVersion = "23.05";
 
-  programs.zsh.enable = true;
   programs.git.enable = true;
   programs.neovim.enable = true;
 
@@ -21,6 +20,16 @@
     hyprpaper
     kitty
     stow
+    ripgrep
+    clang
+
+    kdePackages.dolphin
+
+    nerd-fonts.hack
+
+    # lsp program server
+    lua-language-server
+    stylua
   ];
 }
 

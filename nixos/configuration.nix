@@ -46,6 +46,7 @@
   services.xserver.layout = "us";
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.defaultUserShell = pkgs.zsh;
   users.users.nqim = {
     isNormalUser = true;
     description = "nqim";
@@ -61,6 +62,23 @@
   services.xserver.displayManager.sddm.enable = true;
   programs.hyprland.enable = true;
   
+  services.blueman.enable = true;       # bật Blueman (UI quản lý bluetooth)
+  hardware.bluetooth.enable = true;     # bật Bluetooth kernel + service
+
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    wireplumber.enable = true;
+  };
+
+  hardware.bluetooth.package = pkgs.bluez;             # gói bluetooth chính
+  hardware.bluetooth.powerOnBoot = true;               # bật Bluetooth khi khởi động
+
+  programs.zsh.enable = true;
+
+  
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -75,6 +93,8 @@
     neovim
     git
     waybar
+    blueman   
+    bluez
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
