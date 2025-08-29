@@ -22,8 +22,17 @@
     stow
     ripgrep
     clang
+    hyprpaper
+    unzip
+
+    oh-my-posh
+    fastfetch
 
     kdePackages.dolphin
+    kdePackages.qt6ct
+
+    python3
+    python3Packages.pywal
 
     nerd-fonts.hack
 

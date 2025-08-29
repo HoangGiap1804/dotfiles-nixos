@@ -46,7 +46,7 @@
   services.xserver.layout = "us";
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.defaultUserShell = pkgs.zsh;
+  users.defaultUserShell = pkgs.fish;
   users.users.nqim = {
     isNormalUser = true;
     description = "nqim";
@@ -76,8 +76,7 @@
   hardware.bluetooth.package = pkgs.bluez;             # gói bluetooth chính
   hardware.bluetooth.powerOnBoot = true;               # bật Bluetooth khi khởi động
 
-  programs.zsh.enable = true;
-
+  programs.fish.enable = true;
   
   # List packages installed in system profile. To search, run:
   # $ nix search wget
