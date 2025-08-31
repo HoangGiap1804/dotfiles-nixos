@@ -24,6 +24,7 @@
     clang
     hyprpaper
     unzip
+    tmux
 
     oh-my-posh
     fastfetch

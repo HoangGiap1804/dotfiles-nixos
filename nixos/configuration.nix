@@ -44,6 +44,14 @@
 
   # Configure keymap in X11
   services.xserver.layout = "us";
+  services.xserver = {
+    enable = true;   
+    displayManager = {
+        sddm.enable = true;
+        sddm.theme = "${import ./sddm-theme.nix { inherit pkgs; }}";
+    };
+  };
+  programs.hyprland.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.defaultUserShell = pkgs.fish;
@@ -58,28 +66,11 @@
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  services.xserver.enable = true;
-  services.xserver.displayManager.sddm.enable = true;
-  programs.hyprland.enable = true;
-  
-  services.blueman.enable = true;       # bật Blueman (UI quản lý bluetooth)
-  hardware.bluetooth.enable = true;     # bật Bluetooth kernel + service
-
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    wireplumber.enable = true;
-  };
-
   hardware.bluetooth.package = pkgs.bluez;             # gói bluetooth chính
   hardware.bluetooth.powerOnBoot = true;               # bật Bluetooth khi khởi động
 
   programs.fish.enable = true;
   
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
@@ -94,33 +85,11 @@
     waybar
     blueman   
     bluez
+    nix-prefetch-scripts
+    plasma5Packages.qt5.qtquickcontrols2
+    plasma5Packages.qt5.qtgraphicaleffects
   ];
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.05"; # Did you read the comment?
 
 }
