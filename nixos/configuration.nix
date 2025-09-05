@@ -2,12 +2,13 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      inputs.home-manager.nixosModules.default
     ];
 
   # Bootloader.
@@ -16,10 +17,6 @@
 
   networking.hostName = "nqim"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -62,12 +59,19 @@
     packages = with pkgs; [];
   };
 
+  home-manager = {
+    extraSpecialArgs = {inherit inputs;};
+    users = {
+        "nqim" = import ./home.nix;
+    };
+  };
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   hardware.bluetooth.package = pkgs.bluez;             # gói bluetooth chính
-  hardware.bluetooth.powerOnBoot = true;               # bật Bluetooth khi khởi động
+    hardware.bluetooth.enable = true;
 
   programs.fish.enable = true;
   
@@ -86,10 +90,12 @@
     blueman   
     bluez
     nix-prefetch-scripts
-    plasma5Packages.qt5.qtquickcontrols2
-    plasma5Packages.qt5.qtgraphicaleffects
+    home-manager
+    gcc
+    gdb
+    cmake
   ];
 
-  system.stateVersion = "25.05"; # Did you read the comment?
-
+  system.stateVersion = "23.05"; # Did you read the comment?
 }
+

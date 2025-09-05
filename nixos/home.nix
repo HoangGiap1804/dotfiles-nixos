@@ -5,7 +5,7 @@
   home.homeDirectory = "/home/nqim";
 
   # Đặt version để tránh cảnh báo
-  home.stateVersion = "23.05";
+  home.stateVersion = "25.05";
 
   programs.git.enable = true;
   programs.neovim.enable = true;
@@ -30,10 +30,14 @@
     fastfetch
 
     kdePackages.dolphin
-    kdePackages.qt6ct
 
-    python3
+    python3Full
     python3Packages.pywal
+    python3Packages.pip
+    libGL
+    xorg.libX11
+    xorg.libXext
+    xorg.libXrender
 
     nerd-fonts.hack
 
