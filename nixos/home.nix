@@ -3,20 +3,21 @@
 {
   home.username = "nqim";
   home.homeDirectory = "/home/nqim";
+  home.stateVersion = "24.05"; # chỉnh theo version NixOS của bạn
 
-  # Đặt version để tránh cảnh báo
-  home.stateVersion = "25.05";
-
-  programs.git.enable = true;
-  programs.neovim.enable = true;
-
+  # 🛠 Packages cài cho user
   home.packages = with pkgs; [
+    android-studio
+    flutter
+    android-tools
+    temurin-bin-17
+
     wget
     curl
     htop
     neofetch  
     waybar
-    rofi-wayland
+    rofi
     hyprpaper
     kitty
     stow
@@ -31,7 +32,7 @@
 
     kdePackages.dolphin
 
-    python3Full
+    python3
     python3Packages.pywal
     python3Packages.pip
     libGL
@@ -45,5 +46,16 @@
     lua-language-server
     stylua
   ];
-}
 
+  # Có thể thêm config môi trường nếu cần 
+    home.sessionVariables = {
+        ANDROID_HOME = "${pkgs.android-studio}/share/android-studio";
+        ANDROID_SDK_ROOT = "${pkgs.android-studio}/share/android-studio";
+
+        PATH = "${pkgs.flutter}/bin:" + 
+            "${pkgs.android-studio}/share/android-studio/emulator:" +
+            "${pkgs.android-studio}/share/android-studio/tools:" +
+            "${pkgs.android-studio}/share/android-studio/platform-tools:" +
+            builtins.getEnv "PATH";
+    };
+}
