@@ -26,29 +26,32 @@
     hyprpaper
     unzip
     tmux
+    fzf
+    bat
+
+    pywal
 
     oh-my-posh
     fastfetch
 
     kdePackages.dolphin
 
-    python3
-    python3Packages.pywal
-    python3Packages.pip
-    libGL
-    xorg.libX11
-    xorg.libXext
-    xorg.libXrender
+    quickshell
 
     nerd-fonts.hack
 
     # lsp program server
     lua-language-server
     stylua
+    mysql-workbench
+
+    nodejs_20
+    postman
+    swww
   ];
 
-  # Có thể thêm config môi trường nếu cần 
     home.sessionVariables = {
+    # Có thể thêm config môi trường nếu cần 
         ANDROID_HOME = "${pkgs.android-studio}/share/android-studio";
         ANDROID_SDK_ROOT = "${pkgs.android-studio}/share/android-studio";
 

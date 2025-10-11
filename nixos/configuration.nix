@@ -58,6 +58,13 @@
     programs.fish.enable = true;
     users.defaultUserShell = pkgs.fish;
 
+    services.blueman.enable = true;   # Enables the Blueman manager
+    hardware.bluetooth.enable = true; # Enables Bluetooth support
+    services.mysql = {
+      enable = true;
+      package = pkgs.mariadb;
+    };
+
     # Define a user account. Don't forget to set a password with ‘passwd’.
     users.users.nqim = {
         isNormalUser = true;
