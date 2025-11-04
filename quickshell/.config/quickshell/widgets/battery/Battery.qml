@@ -9,17 +9,13 @@ Button {
   required property string colorButtonUp;
   required property string colorButtonDown;
   required property string colorText;
-
+  property string stateBattery: (UPower.onBattery) ? "󰁹" : "󰂅 " ;
+  property UPower power: UPower;
 
   id: button
-  // onClicked: {
-  //   // node.audio.muted = !node.audio.muted
-  //   console.log('hello')
-  //   AudioPanelSingleton.toggle()
-  // }
 
   background: Rectangle {
-    implicitWidth: 70
+    implicitWidth: 80
     implicitHeight: 30
     color: button.down ? colorButtonDown : colorButtonUp
     border.color: colorBorder
@@ -29,7 +25,7 @@ Button {
     RowLayout {
       anchors.centerIn: parent
       Text {
-        text: "󰂀"
+        text: stateBattery + " " + power.displayDevice.percentage * 100 + " %"
       }
       Text {
         id: batteryText
@@ -43,7 +39,7 @@ Button {
         batteryText.text = UPower.percentage + "%"
       }
       onStateChanged: {
-        console.log("Pin trạng thái: " + UPower.state)
+        stateBattery = (UPower.onBattery) ? "󰂅 " : "󰁹" 
       }
     }
   }

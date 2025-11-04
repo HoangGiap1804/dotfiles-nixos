@@ -7,11 +7,6 @@
 
   # 🛠 Packages cài cho user
   home.packages = with pkgs; [
-    android-studio
-    flutter
-    android-tools
-    temurin-bin-17
-
     wget
     curl
     htop
@@ -45,20 +40,20 @@
     stylua
     mysql-workbench
 
-    nodejs_20
     postman
     swww
+    
+    jetbrains.idea-ultimate
+    lazydocker
+    vscode
+    code-cursor-fhs
+    postman
+    pgadmin4-desktopmode
+    jdk17
+
+    drawio
+
+    burpsuite
   ];
 
-    home.sessionVariables = {
-    # Có thể thêm config môi trường nếu cần 
-        ANDROID_HOME = "${pkgs.android-studio}/share/android-studio";
-        ANDROID_SDK_ROOT = "${pkgs.android-studio}/share/android-studio";
-
-        PATH = "${pkgs.flutter}/bin:" + 
-            "${pkgs.android-studio}/share/android-studio/emulator:" +
-            "${pkgs.android-studio}/share/android-studio/tools:" +
-            "${pkgs.android-studio}/share/android-studio/platform-tools:" +
-            builtins.getEnv "PATH";
-    };
 }
