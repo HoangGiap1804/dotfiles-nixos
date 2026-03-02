@@ -13,12 +13,10 @@
     neofetch  
     waybar
     rofi
-    hyprpaper
     kitty
     stow
     ripgrep
     clang
-    hyprpaper
     unzip
     tmux
     fzf
@@ -53,7 +51,12 @@
 
     drawio
 
-    burpsuite
-  ];
+    libreoffice
+    nautilus
 
+    obs-studio
+    openssl
+    dbeaver-bin
+    stripe-cli
+  ];
 }

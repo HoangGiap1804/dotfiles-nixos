@@ -13,7 +13,7 @@ return {
 				"vim",
 				"javascript",
 				"typescript",
-                "dart",
+				"dart",
 				"tsx",
 				"html",
 				"java",

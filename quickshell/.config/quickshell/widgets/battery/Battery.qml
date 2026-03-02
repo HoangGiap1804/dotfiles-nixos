@@ -25,7 +25,7 @@ Button {
     RowLayout {
       anchors.centerIn: parent
       Text {
-        text: stateBattery + " " + power.displayDevice.percentage * 100 + " %"
+        text: stateBattery + " " + Math.round(power.displayDevice.percentage * 100) + " %"
       }
       Text {
         id: batteryText

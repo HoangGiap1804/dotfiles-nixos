@@ -70,6 +70,10 @@
   };
   services.upower.enable = true;
 
+  services.udisks2.enable = true;     # Quản lý ổ đĩa
+  services.gvfs.enable = true;        # Cung cấp mount tự động cho file manager
+  services.devmon.enable = true;      # Tự động mount thiết bị
+
   programs.hyprland.enable = true;
   programs.fish.enable = true;
   users.defaultUserShell = pkgs.fish;
@@ -89,6 +93,9 @@
         host all all 127.0.0.1/32 trust
         host all all ::1/128 trust
     '';
+    extensions = ps: with ps; [
+      postgis
+    ];
   };
   virtualisation.docker = {
     enable = true;
@@ -102,6 +109,9 @@
     extraGroups = [ 
       "networkmanager"
       "wheel" 
+      "storage" 
+      "plugdev" 
+      "disk"
     ];
     packages = with pkgs; [];
   };
@@ -123,6 +133,7 @@
     slurp
     wl-clipboard
     firefox
+    google-chrome
     neovim
     blueman
     bluez
@@ -132,6 +143,7 @@
     fcitx5-unikey
     awscli
     maven
+    gradle
     hyprlock
     bibata-cursors
 
@@ -140,6 +152,8 @@
 
     python3
     python3Packages.pip
+
+    udiskie
 
     # android-studio
     # clang
@@ -183,6 +197,11 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
+
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [ 80 443 3000 ];
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

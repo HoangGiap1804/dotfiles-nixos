@@ -12,6 +12,8 @@ import Quickshell.Io
 import "./bars"
 import "./colors"
 import "./widgets/audio"
+import "./widgets/dock"
+import "./utils"
 
 ShellRoot{
     id: root
@@ -50,4 +52,5 @@ ShellRoot{
     BottomRightCorner{}
     TopLeftCorner{}
     TopRightCorner{}
+    Dock{}
 }
