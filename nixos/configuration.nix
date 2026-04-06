@@ -55,6 +55,11 @@
     GTK_IM_MODULE = "fcitx";
     QT_IM_MODULE = "fcitx";
     XMODIFIERS = "@im=fcitx";
+    # CUDA_PATH = "${pkgs.cudaPackages.cudatoolkit}";
+    # PATH = "${pkgs.cudaPackages.cudatoolkit}/bin:$PATH";
+    # LIBRARY_PATH = "/usr/lib:/usr/lib64";
+    # EXTRA_LDFLAGS = "-L/lib -L/usr/lib";
+    # EXTRA_CCFLAGS = "-I/usr/include";
   };
 
   # Configure keymap in X11
@@ -68,6 +73,7 @@
       sddm.enable = true; 
     };
   };
+
   services.upower.enable = true;
 
   services.udisks2.enable = true;     # Quản lý ổ đĩa
@@ -101,6 +107,25 @@
     enable = true;
     enableOnBoot = true;
   };
+
+  hardware.graphics.enable = true;
+  services.xserver.videoDrivers = ["nvidia"];
+  hardware.nvidia = {
+    modesetting.enable = true;
+
+    powerManagement.enable = false;
+
+    open = false; # dùng driver proprietary
+
+    nvidiaSettings = true;
+  };
+  hardware.nvidia.prime = {
+    sync.enable = true;
+
+    intelBusId = "PCI:0:2:0";   # check bằng lspci
+    nvidiaBusId = "PCI:1:0:0";  # check bằng lspci
+  };
+  hardware.opengl.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.nqim = {
@@ -153,7 +178,49 @@
     python3
     python3Packages.pip
 
-    udiskie
+    (buildFHSEnv {
+      name = "cuda-fhs"; # Tên lệnh bạn sẽ gõ trong terminal
+
+      # Khai báo các gói phần mềm có mặt trong môi trường này
+      targetPkgs = pkgs: with pkgs; [
+        gcc
+        gnumake
+        pkg-config
+        cmake
+
+        cudaPackages.cudatoolkit
+        cudaPackages.cuda_nvcc
+        cudaPackages.cuda_cudart
+        cudaPackages.cuda_cudart.static
+        linuxPackages.nvidia_x11 # Cần thiết để link với driver đồ họa
+        
+        zlib
+        glfw
+        glm
+        glew.dev
+        libglvnd.dev
+        libGLU.dev
+        xorg.libX11
+        xorg.libXrandr
+        xorg.libXinerama
+        xorg.libXcursor
+        xorg.libXi
+        nlohmann_json
+        
+      ];
+
+      # Chạy bash shell khi gọi lệnh này
+      runScript = "bash";
+
+      # Khởi tạo các biến môi trường tự động khi vào FHS
+      profile = ''
+        export CUDA_PATH=${pkgs.cudaPackages.cudatoolkit}
+        export PATH=$CUDA_PATH/bin:$PATH
+        export LIBRARY_PATH=/usr/lib:/usr/lib64:$LIBRARY_PATH
+        export EXTRA_LDFLAGS="-L/lib -L/usr/lib"
+        export EXTRA_CCFLAGS="-I/usr/include"
+      '';
+    })
 
     # android-studio
     # clang

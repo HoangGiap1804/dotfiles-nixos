@@ -44,9 +44,7 @@
     jetbrains.idea-ultimate
     lazydocker
     vscode
-    code-cursor-fhs
     postman
-    pgadmin4-desktopmode
     jdk17
 
     drawio
@@ -58,5 +56,9 @@
     openssl
     dbeaver-bin
     stripe-cli
+    opencode
+
+    mission-center
+    brightnessctl
   ];
 }
