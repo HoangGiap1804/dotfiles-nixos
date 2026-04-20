@@ -10,6 +10,7 @@ import "../widgets"
 import "../colors"
 import "../widgets/audio"
 import "../widgets/battery"
+import "../widgets/wifi"
 
 
 PanelWindow {
@@ -20,7 +21,7 @@ PanelWindow {
     right: true
   }
   aboveWindows: false
-  implicitHeight:40 
+  height: 30
   color: WalColors.background
 
   RowLayout {
@@ -33,13 +34,14 @@ PanelWindow {
       Layout.preferredWidth: 200
       Layout.preferredHeight: parent.height
       Row{
+        height: parent.height
         anchors.left: parent.left
         anchors.verticalCenter: parent.verticalCenter
         anchors.leftMargin: 20
         spacing: 10
         Text{
           anchors.verticalCenter: parent.verticalCenter
-          font.pointSize: 25
+          font.pixelSize: parent.height * 0.6
           color: WalColors.foreground
           text: " "
         }
@@ -59,8 +61,8 @@ PanelWindow {
         Layout.topMargin: 10
         Layout.bottomMargin: 5
         radius: 5 
-        width: clockText.width + 10
-        height: clockText.height + 10
+        height: Math.min(parent.height * 0.8, clockText.height + 10)
+        width: clockText.width + 15
         color: WalColors.color4
         SystemClock {
           id: clock
@@ -80,30 +82,57 @@ PanelWindow {
       Layout.fillWidth: true
       Layout.minimumWidth: 100
       Layout.preferredWidth: 200
-      Layout.minimumHeight: 40
+
       Layout.preferredHeight: parent.height
 
       RowLayout{
         anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
         anchors.rightMargin: 10
+        spacing: 8
+
+        SystemStats { id: stats }
+
         CustomeButton{
-          text: "󰻠 34%"
+          text: "  " + stats.cpuUsage
           colorButtonUp: WalColors.color4
           colorButtonDown: WalColors.color7
+          colorBorder: "transparent"
+          colorText: WalColors.foreground
         }
         CustomeButton{
-          text: " "
+          text: "  " + stats.ramUsage
+          colorButtonUp: WalColors.color3
+          colorButtonDown: WalColors.color7
+          colorBorder: "transparent"
+          colorText: WalColors.foreground
+        }
+        CustomeButton{
+          text: "󰢮  " + stats.gpuUsage
+          colorButtonUp: WalColors.color2
+          colorButtonDown: WalColors.color7
+          colorBorder: "transparent"
+          colorText: WalColors.foreground
+        }
+        CustomeButton{
+          text: "   " + stats.wifiName
           colorButtonUp: WalColors.color5
           colorButtonDown: WalColors.color7
+          colorBorder: "transparent"
+          colorText: WalColors.foreground
+          onClicked: WifiPanelSingleton.toggle()
         }
         Audio{
           colorButtonUp: WalColors.color6
           colorButtonDown: WalColors.color7
+          colorBorder: "transparent"
+          colorText: WalColors.foreground
         }
         Battery{
           colorButtonUp: WalColors.color7
           colorButtonDown: WalColors.color8
+          colorBorder: "transparent"
+          colorText: WalColors.foreground
         }
       }
     }

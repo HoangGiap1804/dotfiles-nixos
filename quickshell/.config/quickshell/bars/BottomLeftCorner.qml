@@ -10,7 +10,7 @@ PanelWindow {
     exclusionMode: ExclusionMode.Normal
 
     focusable: false
-    aboveWindows: false 
+    aboveWindows: false
 
     color: "transparent"
 

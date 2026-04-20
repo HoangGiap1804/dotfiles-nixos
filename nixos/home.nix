@@ -27,8 +27,6 @@
     oh-my-posh
     fastfetch
 
-    kdePackages.dolphin
-
     quickshell
 
     nerd-fonts.hack
@@ -36,7 +34,6 @@
     # lsp program server
     lua-language-server
     stylua
-    mysql-workbench
 
     postman
     swww
@@ -54,11 +51,19 @@
 
     obs-studio
     openssl
-    dbeaver-bin
     stripe-cli
     opencode
 
     mission-center
     brightnessctl
+
+    # Flutter development
+    flutter
+    android-studio
+    cmake
+    ninja
+    pkg-config
+    gtk3
   ];
+
 }

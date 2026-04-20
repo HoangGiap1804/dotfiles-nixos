@@ -1,72 +1,146 @@
 import Quickshell
-import QtQuick.Effects
 import QtQuick
 import QtQuick.Layouts
 import Quickshell.Io
-import QtQuick.Controls
+import QtQuick.Controls.Basic
 import Quickshell.Services.Pipewire
 
 import "../../colors"
 
 PanelWindow {
     id: audioPanel 
+    
+    property bool active: AudioPanelSingleton.active
+
     anchors {
         top: true
         right: true
     }
+    
+    margins {
+        top: 15
+        right: 15
+    }
+    
     aboveWindows: true 
-    implicitHeight:400 
-    implicitWidth:300 
-    visible: false
-    // exclusiveZone: 0
-    color: "#00000000"
+    implicitHeight: 500
+    implicitWidth: 320
+    
+    // Window is visible as long as the animation is running
+    visible: active || (contentRect.opacity > 0)
+    color: "transparent"
+    exclusionMode: ExclusionMode.None
 
     Component.onCompleted: {
       AudioPanelSingleton.panel = audioPanel
-      AudioPanelSingleton.panel.visibel = false
     }
-    Rectangle{
-      anchors.verticalCenter: parent.verticalCenter
-      anchors.horizontalCenter: parent.horizontalCenter
-      width: 250
-      height: 350
-      color: WalColors.color6
-      border.color: WalColors.background
-      border.width: 3
-      radius: 10
 
-      ScrollView {
+    Rectangle {
+      id: contentRect
+      anchors.top: parent.top
+      anchors.right: parent.right
+      width: 300
+      height: Math.min(450, mainLayout.implicitHeight + 40)
+      
+      color: WalColors.background
+      border.color: WalColors.color6
+      border.width: 1
+      radius: 12
+      
+      opacity: audioPanel.active ? 0.98 : 0
+      scale: audioPanel.active ? 1 : 0.95
+      
+      Behavior on opacity { NumberAnimation { duration: 150 } }
+      Behavior on scale { 
+          NumberAnimation { 
+              duration: 250
+              easing.type: Easing.OutBack
+          } 
+      }
+
+      /* layer.enabled: true
+      layer.effect: MultiEffect {
+          shadowEnabled: true
+          shadowBlur: 0.8
+          shadowColor: "#80000000"
+          shadowVerticalOffset: 4
+      } */
+
+      ColumnLayout {
+        id: mainLayout
         anchors.fill: parent
-        contentWidth: availableWidth
+        anchors.margins: 15
+        spacing: 12
 
-        ColumnLayout {
-          anchors.fill: parent
-          anchors.margins: 10
-
-          // get a list of nodes that output to the default sink
-          PwNodeLinkTracker {
-            id: linkTracker
-            node: Pipewire.defaultAudioSink
-          }
-
-          MixerEntry {
-            node: Pipewire.defaultAudioSink
-          }
-
-          Rectangle {
+        RowLayout {
             Layout.fillWidth: true
-            color: palette.active.text
-            implicitHeight: 1
+            Text {
+                text: "Volume Mixer"
+                font.pixelSize: 16
+                font.bold: true
+                color: WalColors.foreground
+                Layout.fillWidth: true
+            }
+            Text {
+                text: "󰓃"
+                font.pixelSize: 18
+                color: WalColors.color4
+            }
+        }
+
+        Rectangle {
+            Layout.fillWidth: true
+            height: 1
+            color: WalColors.color8
+            opacity: 0.2
+        }
+
+        ScrollView {
+          Layout.fillWidth: true
+          Layout.fillHeight: true
+          clip: true
+          ScrollBar.vertical: ScrollBar { 
+              policy: ScrollBar.AsNeeded
           }
 
-          Repeater {
-            model: linkTracker.linkGroups
+          ColumnLayout {
+            width: mainLayout.width - 30
+            spacing: 16
+
+            PwNodeLinkTracker {
+              id: linkTracker
+              node: Pipewire.defaultAudioSink
+            }
+
             MixerEntry {
-              required property PwLinkGroup modelData
-              node: modelData.source
+              node: Pipewire.defaultAudioSink
+            }
+
+            Rectangle {
+              Layout.fillWidth: true
+              color: WalColors.color8
+              opacity: 0.1
+              implicitHeight: 1
+              Layout.topMargin: 4
+              Layout.bottomMargin: 4
+            }
+
+            Repeater {
+              model: linkTracker.linkGroups
+              MixerEntry {
+                required property PwLinkGroup modelData
+                node: modelData.source
+              }
             }
           }
         }
       }
+    }
+    
+    // Close when clicking outside
+    MouseArea {
+        anchors.fill: parent
+        z: -1
+        onClicked: AudioPanelSingleton.active = false
     }
 }

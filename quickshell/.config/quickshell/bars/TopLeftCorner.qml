@@ -10,7 +10,8 @@ PanelWindow {
     exclusionMode: ExclusionMode.Normal
 
     focusable: false 
-    aboveWindows: false 
+    aboveWindows: false
+
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
 
     color: "transparent"

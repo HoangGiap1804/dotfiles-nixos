@@ -16,16 +16,17 @@ Button {
 
   background: Rectangle {
     implicitWidth: 80
-    implicitHeight: 30
+    implicitHeight: 24
     color: button.down ? colorButtonDown : colorButtonUp
     border.color: colorBorder
-    border.width: 2
-    radius: 10
+    border.width: 1
+    radius: 8
 
     RowLayout {
       anchors.centerIn: parent
       Text {
         text: stateBattery + " " + Math.round(power.displayDevice.percentage * 100) + " %"
+        font.pixelSize: 13
       }
       Text {
         id: batteryText

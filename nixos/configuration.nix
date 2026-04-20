@@ -55,11 +55,6 @@
     GTK_IM_MODULE = "fcitx";
     QT_IM_MODULE = "fcitx";
     XMODIFIERS = "@im=fcitx";
-    # CUDA_PATH = "${pkgs.cudaPackages.cudatoolkit}";
-    # PATH = "${pkgs.cudaPackages.cudatoolkit}/bin:$PATH";
-    # LIBRARY_PATH = "/usr/lib:/usr/lib64";
-    # EXTRA_LDFLAGS = "-L/lib -L/usr/lib";
-    # EXTRA_CCFLAGS = "-I/usr/include";
   };
 
   # Configure keymap in X11
@@ -86,23 +81,6 @@
 
   services.blueman.enable = true;   # Enables the Blueman manager
   hardware.bluetooth.enable = true; # Enables Bluetooth support
-  services.mysql = {
-    enable = true;
-    package = pkgs.mariadb;
-  };
-  services.postgresql = {
-    enable = true;
-    package = pkgs.postgresql_16; # hoặc postgresql_15 nếu muốn
-    dataDir = "/var/lib/postgresql/16"; # nơi lưu database
-    authentication = pkgs.lib.mkForce ''
-        local all all trust
-        host all all 127.0.0.1/32 trust
-        host all all ::1/128 trust
-    '';
-    extensions = ps: with ps; [
-      postgis
-    ];
-  };
   virtualisation.docker = {
     enable = true;
     enableOnBoot = true;
@@ -137,6 +115,8 @@
       "storage" 
       "plugdev" 
       "disk"
+      "adbusers"
+      "kvm"
     ];
     packages = with pkgs; [];
   };
@@ -151,14 +131,10 @@
     vim 
     git
     wget
-    waybar
-    wofi
-    kitty
     grim
     slurp
     wl-clipboard
     firefox
-    google-chrome
     neovim
     blueman
     bluez
@@ -166,116 +142,41 @@
     stow
     docker-compose
     fcitx5-unikey
-    awscli
     maven
     gradle
     hyprlock
     bibata-cursors
-
     nodejs_24
     pnpm_9
-
-    python3
-    python3Packages.pip
-
-    (buildFHSEnv {
-      name = "cuda-fhs"; # Tên lệnh bạn sẽ gõ trong terminal
-
-      # Khai báo các gói phần mềm có mặt trong môi trường này
-      targetPkgs = pkgs: with pkgs; [
-        gcc
-        gnumake
-        pkg-config
-        cmake
-
-        cudaPackages.cudatoolkit
-        cudaPackages.cuda_nvcc
-        cudaPackages.cuda_cudart
-        cudaPackages.cuda_cudart.static
-        linuxPackages.nvidia_x11 # Cần thiết để link với driver đồ họa
-        
-        zlib
-        glfw
-        glm
-        glew.dev
-        libglvnd.dev
-        libGLU.dev
-        xorg.libX11
-        xorg.libXrandr
-        xorg.libXinerama
-        xorg.libXcursor
-        xorg.libXi
-        nlohmann_json
-        
-      ];
-
-      # Chạy bash shell khi gọi lệnh này
-      runScript = "bash";
-
-      # Khởi tạo các biến môi trường tự động khi vào FHS
-      profile = ''
-        export CUDA_PATH=${pkgs.cudaPackages.cudatoolkit}
-        export PATH=$CUDA_PATH/bin:$PATH
-        export LIBRARY_PATH=/usr/lib:/usr/lib64:$LIBRARY_PATH
-        export EXTRA_LDFLAGS="-L/lib -L/usr/lib"
-        export EXTRA_CCFLAGS="-I/usr/include"
-      '';
-    })
-
-    # android-studio
-    # clang
-    # cmake
-    # flutter
-    # ninja
-    # pkg-config
-
   ];
-
-  # programs = {
-  #   adb.enable = true;
-  # };
-  #
-  # system.userActivationScripts = {
-  #   stdio = {
-  #     text = ''
-  #     rm -f ~/Android/Sdk/platform-tools/adb
-  #     ln -s /run/current-system/sw/bin/adb ~/Android/Sdk/platform-tools/adb
-  #     '';
-  #     deps = [
-  #     ];
-  #   };
-  # };
-  
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 80 443 3000 ];
+    allowedTCPPorts = [ 80 443 3000 8000 8765];
   };
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "25.05"; # Did you read the comment?
+
+  programs.adb.enable = true;
+
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    stdenv.cc.cc
+    zlib
+    zstd
+    curl
+    openssl
+    attr
+    libssh
+    libxml2
+    acl
+    libtool
+    sqlite
+    glib
+    ncurses
+    util-linux
+    bzip2
+    libgcc
+  ];
+
+  system.stateVersion = "25.05"; 
 
 }

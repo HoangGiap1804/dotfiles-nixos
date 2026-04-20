@@ -12,6 +12,7 @@ import Quickshell.Io
 import "./bars"
 import "./colors"
 import "./widgets/audio"
+import "./widgets/wifi"
 import "./widgets/dock"
 import "./utils"
 
@@ -20,6 +21,7 @@ ShellRoot{
 
     Component.onCompleted: {
         WalColors.background = "#D9F";   // cập nhật trực tiếp
+        console.log("Number of screens detected:", Quickshell.screens.length);
     }
 
     FileView {
@@ -45,12 +47,30 @@ ShellRoot{
             WalColors.color13 = fileContents.colors.color13;
         }
     }
-    TopBar{}
-    // LeftBar{}
+
+
+    Variants {
+        model: Quickshell.screens
+        TopBar { property var modelData; screen: modelData }
+    }
+    Variants {
+        model: Quickshell.screens
+        BottomLeftCorner { property var modelData; screen: modelData }
+    }
+    Variants {
+        model: Quickshell.screens
+        BottomRightCorner { property var modelData; screen: modelData }
+    }
+    Variants {
+        model: Quickshell.screens
+        TopLeftCorner { property var modelData; screen: modelData }
+    }
+    Variants {
+        model: Quickshell.screens
+        TopRightCorner { property var modelData; screen: modelData }
+    }
+
     ExtraPanel{}
-    BottomLeftCorner{}
-    BottomRightCorner{}
-    TopLeftCorner{}
-    TopRightCorner{}
+    WifiPanel{}
     // Dock{}
 }

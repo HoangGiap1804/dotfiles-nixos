@@ -8,8 +8,8 @@ Rectangle {
     id: workspaceRectangle
 
     property int underlineHeight: 2
-    property int itemWidth: 33
-    property int fontSize: 25
+    property real fontSize: height * 0.75
+    property real itemWidth: height * 0.9
     property var activeIcons: ["󰲠", "󰲢", "󰲤", "󰲦", "󰲨", "󰲪", "󰲬", "󰲮", "󰲰", "󰿬"]
     property var inActiveIcons: ["󰬺", "󰬻", "󰬼", "󰬽", "󰬾", "󰬿", "󰭀", "󰭁", "󰭂", "󰿩"]
     property int focusedId: Hyprland.focusedWorkspace !== null ? Hyprland.focusedWorkspace.id : 0
@@ -20,9 +20,9 @@ Rectangle {
     property var focusedItem: null
 
     anchors.verticalCenter: parent.verticalCenter
-    height: parent.height - 10
-    width: rowLayout.implicitWidth + 20
-    radius: 49
+    height: parent && parent.height > 6 ? parent.height - 6 : 24
+    width: Math.max(150, rowLayout.implicitWidth + 10)
+    radius: 10
     color: WalColors.color8
 
     onFocusedIdChanged: {

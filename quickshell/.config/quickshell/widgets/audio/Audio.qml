@@ -21,19 +21,21 @@ Button {
     }
     background: Rectangle {
         implicitWidth: 70
-        implicitHeight: 30
+        implicitHeight: 24
         color: button.down ? colorButtonDown : colorButtonUp
         border.color: colorBorder
-        border.width: 2
-        radius: 10
+        border.width: 1
+        radius: 8
         RowLayout{
           anchors.horizontalCenter: parent.horizontalCenter
           anchors.verticalCenter: parent.verticalCenter
           Text{
-            text: node.audio.muted ? " " : " "
+            text: (node && node.audio) ? (node.audio.muted ? " " : " ") : " "
+            font.pixelSize: 14
           }
           Text{
-			      text: `${Math.floor(node.audio.volume * 100)}%`
+            text: (node && node.audio) ? `${Math.floor(node.audio.volume * 100)}%` : "0%"
+            font.pixelSize: 13
           }
         }
     }

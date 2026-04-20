@@ -6,7 +6,7 @@ Item {
     property string position: "top-left"
 
     property color shapeColor: "#000" 
-    property real cornerRadius: 30
+    property real cornerRadius: 15
 
     width: cornerRadius
     height: cornerRadius
