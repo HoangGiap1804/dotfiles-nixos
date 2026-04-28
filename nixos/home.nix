@@ -11,7 +11,6 @@
     curl
     htop
     neofetch  
-    waybar
     rofi
     kitty
     stow
@@ -31,11 +30,6 @@
 
     nerd-fonts.hack
 
-    # lsp program server
-    lua-language-server
-    stylua
-
-    postman
     swww
     
     jetbrains.idea-ultimate
@@ -64,6 +58,8 @@
     ninja
     pkg-config
     gtk3
+
+    cargo
   ];
 
 }

@@ -1,0 +1,11 @@
+{
+  "position": "bottom",
+  "orientation": "horizontal",
+  "iconSize": 38,
+  "alwaysVisible": false,
+  "showIconsBackground": true,
+  "showTooltips": false,
+  "falloff": 3,
+  "scaleFactor": 0.3,
+  "damp": 1
+}

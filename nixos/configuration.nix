@@ -62,6 +62,7 @@
     layout = "us";
     variant = "";
   };
+
   services.xserver = {
     enable = true;
     displayManager = {
@@ -75,7 +76,12 @@
   services.gvfs.enable = true;        # Cung cấp mount tự động cho file manager
   services.devmon.enable = true;      # Tự động mount thiết bị
 
-  programs.hyprland.enable = true;
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+    withUWSM = true;
+  };
+
   programs.fish.enable = true;
   users.defaultUserShell = pkgs.fish;
 
@@ -144,8 +150,6 @@
     fcitx5-unikey
     maven
     gradle
-    hyprlock
-    bibata-cursors
     nodejs_24
     pnpm_9
   ];
