@@ -1,4 +1,4 @@
-oh-my-posh init fish --config ~/.poshthemes/test1.json | source
+oh-my-posh init fish --config ~/.poshthemes/theme.json | source
 
 set -U fish_greeting ""
 
