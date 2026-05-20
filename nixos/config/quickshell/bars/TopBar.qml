@@ -22,7 +22,7 @@ PanelWindow {
   }
   aboveWindows: false
   height: 30
-  color: WalColors.background
+  color: "#00000000"
 
   RowLayout {
     id: layout

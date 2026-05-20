@@ -10,6 +10,7 @@
       ./modules/fish.nix
       ./modules/window_manager.nix
       ./modules/properties.nix
+      ./modules/tmux.nix
     ];
 
   # Bootloader.
@@ -47,6 +48,7 @@
     home-manager
     docker-compose
     oh-my-posh
+    clang
   ];
 
   programs.adb.enable = true;

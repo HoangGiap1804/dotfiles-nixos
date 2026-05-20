@@ -1,8 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  home.username = "nqim";
-  home.homeDirectory = "/home/nqim";
+  home.username = "nqim"; home.homeDirectory = "/home/nqim";
   home.stateVersion = "25.11"; # chỉnh theo version NixOS của bạn
 
   home.file.".config/rofi".source = ./config/rofi;
@@ -36,6 +35,33 @@
     enable = true;
   };
 
+  gtk = {
+    enable = true;
+
+  theme = {
+      name = "Catppuccin-Mocha-Standard-Blue-Dark";
+      package = pkgs.catppuccin-gtk;
+    };
+
+    iconTheme = {
+      name = "Papirus-Dark";
+      package = pkgs.papirus-icon-theme;
+    };
+
+    cursorTheme = {
+      name = "Bibata-Modern-Ice";
+      package = pkgs.bibata-cursors;
+    };
+  };
+
+  home.pointerCursor = {
+    name = "Bibata-Modern-Ice";
+    package = pkgs.bibata-cursors;
+    size = 24;
+    gtk.enable = true;
+  };
+  
+
   # 🛠 Packages cài cho user
   home.packages = with pkgs; [
     wget
@@ -46,7 +72,6 @@
     kitty
     ripgrep
     unzip
-    tmux
     fzf
     pywal
     fastfetch
@@ -74,6 +99,18 @@
     pkg-config
     gtk3
     cargo
+
+    gnome-tweaks
+    arc-theme
+
+    blender
+
+    nodejs_22
+    pnpm 
+
+    scrcpy
+
+    vlc
   ];
 
 }
