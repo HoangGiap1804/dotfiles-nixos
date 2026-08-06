@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports =
@@ -49,6 +49,11 @@
     docker-compose
     oh-my-posh
     clang
+    cmake
+    meson
+    cpio
+    inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland
+    inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 
   programs.adb.enable = true;

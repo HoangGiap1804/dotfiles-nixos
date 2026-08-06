@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   home.username = "nqim"; home.homeDirectory = "/home/nqim";
@@ -6,22 +6,22 @@
 
   home.file.".config/rofi".source = ./config/rofi;
   home.file.".config/nvim".source = ./config/nvim;
-  home.file.".config/quickshell".source = ./config/quickshell;
+  # home.file.".config/quickshell".source = ./config/quickshell;
   home.file.".config/fastfetch".source = ./config/fastfetch;
   home.file.".poshthemes".source = ./config/oh-my-posh;
 
   home.file.".config/kitty" = {
-	  source = ./config/kitty;
-	  recursive = true;
+    source = ./config/kitty;
+    recursive = true;
   };
   home.file.".config/fish" = {
-	  source = ./config/fish;
-	  recursive = true;
+    source = ./config/fish;
+    recursive = true;
     force = true;
   };
   home.file.".config/hypr" = {
-	  source = ./config/hypr;
-	  recursive = true;
+    source = ./config/hypr;
+    recursive = true;
     force = true;
   };
 
@@ -35,19 +35,23 @@
     enable = true;
   };
 
+  dconf.settings = {
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark"; # "default" for light mode
+    };
+  };
+
   gtk = {
     enable = true;
-
-  theme = {
-      name = "Catppuccin-Mocha-Standard-Blue-Dark";
-      package = pkgs.catppuccin-gtk;
+    theme = {
+      name = "adw-gtk3"; 
+      package = pkgs.adw-gtk3;
     };
 
     iconTheme = {
       name = "Papirus-Dark";
       package = pkgs.papirus-icon-theme;
     };
-
     cursorTheme = {
       name = "Bibata-Modern-Ice";
       package = pkgs.bibata-cursors;
@@ -60,7 +64,6 @@
     size = 24;
     gtk.enable = true;
   };
-  
 
   # 🛠 Packages cài cho user
   home.packages = with pkgs; [
@@ -111,6 +114,13 @@
     scrcpy
 
     vlc
+
+    jdk17
+    maven
+    dbeaver-bin
+
+    libnotify
+    inotify-tools
   ];
 
 }
