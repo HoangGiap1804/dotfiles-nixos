@@ -1,0 +1,6 @@
+[submodule "nixos/config/nixos/config/topbar-quickshell"]
+	path = nixos/config/nixos/config/topbar-quickshell
+	url = git@github.com:HoangGiap1804/topbar-quickshell.git
+[submodule "nixos/config/topbar-quickshell"]
+	path = nixos/config/topbar-quickshell
+	url = https://github.com/HoangGiap1804/topbar-quickshell.git
