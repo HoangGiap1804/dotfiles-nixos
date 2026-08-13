@@ -9,6 +9,7 @@
       ./modules/nvidia.nix
       ./modules/fish.nix
       ./modules/window_manager.nix
+      ./modules/sddm.nix
       ./modules/properties.nix
       ./modules/tmux.nix
     ];

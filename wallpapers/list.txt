@@ -3,3 +3,6 @@
 /home/nqim/.dotfiles/wallpapers/Untitled8.png
 /home/nqim/.dotfiles/wallpapers/background.jpg
 /home/nqim/.dotfiles/wallpapers/wallpaper.jpeg
+/home/nqim/.dotfiles/wallpapers/wallpaper.jpg
+/home/nqim/.dotfiles/wallpapers/wallpaper2.jpg
+/home/nqim/.dotfiles/wallpapers/wallpaper3.jpg

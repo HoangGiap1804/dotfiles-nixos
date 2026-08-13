@@ -4,9 +4,10 @@
   home.username = "nqim"; home.homeDirectory = "/home/nqim";
   home.stateVersion = "25.11"; # chỉnh theo version NixOS của bạn
 
+  home.file.".tmux.conf".source = ./config/tmux/.tmux.conf;
   home.file.".config/rofi".source = ./config/rofi;
   home.file.".config/nvim".source = ./config/nvim;
-  # home.file.".config/quickshell".source = ./config/quickshell;
+  home.file.".config/quickshell".source = ./config/topbar-quickshell;
   home.file.".config/fastfetch".source = ./config/fastfetch;
   home.file.".poshthemes".source = ./config/oh-my-posh;
 
@@ -121,6 +122,8 @@
 
     libnotify
     inotify-tools
+    cloudflared
+    envsubst
   ];
 
 }
