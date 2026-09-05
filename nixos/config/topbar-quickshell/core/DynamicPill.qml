@@ -1,5 +1,7 @@
 import QtQuick
 import QtQuick.Shapes
+import Quickshell.Io
+
 
 Item {
     id: pill
@@ -19,6 +21,120 @@ Item {
     property alias minimizeAnim: minimizeAnim
     property alias expandAnim: expandAnim
     
+    property string monitorName: ""
+    property var monitorWorkspaces: []
+    
+    // Track active window count
+    property int activeWindowCount: 0
+    property bool hasWindows: activeWindowCount > 0
+
+    Process {
+        id: windowCountWatcher
+        command: ["bash", "-c", "echo '---monitors---'; hyprctl monitors -j 2>/dev/null; echo '---workspaces---'; hyprctl workspaces -j 2>/dev/null"]
+        running: true
+        stdout: StdioCollector {
+            onStreamFinished: {
+                var output = this.text.trim();
+                if (output === "") return;
+                try {
+                    var parts = output.split("---workspaces---");
+                    if (parts.length < 2) return;
+                    
+                    var monPart = parts[0].replace("---monitors---", "").trim();
+                    var wsPart = parts[1].trim();
+                    
+                    var monitors = JSON.parse(monPart);
+                    var workspaces = JSON.parse(wsPart);
+                    
+                    var activeWsId = null;
+                    for (var i = 0; i < monitors.length; i++) {
+                        if (monitors[i].name === pill.monitorName) {
+                            activeWsId = monitors[i].activeWorkspace.id;
+                            break;
+                        }
+                    }
+                    
+                    var mWs = [];
+                    var winCount = 0;
+                    
+                    for (var j = 0; j < workspaces.length; j++) {
+                        if (workspaces[j].monitor === pill.monitorName) {
+                            mWs.push({ id: workspaces[j].id, windows: workspaces[j].windows });
+                            if (workspaces[j].id === activeWsId) {
+                                winCount = workspaces[j].windows;
+                            }
+                        }
+                    }
+                    
+                    mWs.sort(function(a, b) { return a.id - b.id; });
+                    
+                    pill.monitorWorkspaces = mWs;
+                    
+                    if (activeWsId !== null) {
+                        pill.currentWorkspaceId = activeWsId;
+                        pill.activeWindowCount = winCount;
+                    }
+                } catch(e) {
+                    console.log("Error parsing hyprctl:", e);
+                }
+            }
+        }
+        onRunningChanged: {
+            if (!running) {
+                pollTimer.start()
+            }
+        }
+    }
+
+    Timer {
+        id: pollTimer
+        interval: 500
+        repeat: false
+        onTriggered: windowCountWatcher.running = true
+    }
+
+    NumberAnimation {
+        id: hideUpwardsAnim
+        target: pill
+        property: "yOffset"
+        to: -(pill.miniHeight + 50)
+        duration: 300
+        easing.type: Easing.InQuad
+    }
+
+    NumberAnimation {
+        id: showDownwardsAnim
+        target: pill
+        property: "yOffset"
+        to: 0
+        duration: 400
+        easing.type: Easing.OutExpo
+    }
+
+    property bool isTriggerHovered: false
+    property bool isHovered: pillMouseArea.containsMouse || isTriggerHovered
+
+    onHasWindowsChanged: {
+        if (isMini && !isShrinking && !isExpanding && !showLauncher) {
+            if (hasWindows && !isHovered) {
+                hideUpwardsAnim.start();
+            } else {
+                showDownwardsAnim.start();
+            }
+        }
+    }
+
+    onIsHoveredChanged: {
+        if (isMini && !isShrinking && !isExpanding && !showLauncher) {
+            if (hasWindows && !isHovered) {
+                hideUpwardsAnim.start();
+            } else if (isHovered) {
+                showDownwardsAnim.start();
+            }
+        }
+    }
+
+    
     SequentialAnimation {
         id: minimizeAnim
         
@@ -36,7 +152,7 @@ Item {
         NumberAnimation { 
             target: pill; property: "yOffset"; 
             to: -(pill.height + 50); 
-            duration: 250; easing.type: Easing.InBack 
+            duration: 250; easing.type: Easing.InQuad 
         }
         
         // 5. Chuyển sang trạng thái notch
@@ -49,7 +165,7 @@ Item {
         // 7. Từ từ trượt xuống
         NumberAnimation { 
             target: pill; property: "yOffset"; 
-            to: 0; 
+            to: (pill.hasWindows && !pill.showLauncher) ? -(pill.miniHeight + 50) : 0; 
             duration: 400; easing.type: Easing.OutExpo 
         }
     }
@@ -66,31 +182,25 @@ Item {
     property bool isFadingOut: false
     property bool isExpanding: false
     property bool showLauncher: false
-    property bool showingWorkspace: false
+    
+    onShowLauncherChanged: {
+        if (showLauncher) {
+            launcherSearchInput.forceActiveFocus()
+            if (yOffset !== 0) showDownwardsAnim.start()
+        } else {
+            if (hasWindows && isMini) hideUpwardsAnim.start()
+        }
+    }
     
     // Workspace logic is passed down to WorkspaceDots, but we still trigger it here
     property int currentWorkspaceId: 1
     property bool _wsInitialized: false
     
-    onCurrentWorkspaceIdChanged: {
-        if (!_wsInitialized) {
-            _wsInitialized = true;
-            return;
-        }
-        if (isMini && !isShrinking) {
-            showingWorkspace = true;
-            wsTimer.restart();
-        }
-    }
+    readonly property real currentWidth: isMini ? miniWidth : expandedWidth
     
-    Timer {
-        id: wsTimer
-        interval: 1500
-        onTriggered: pill.showingWorkspace = false
-    }
-
-    property real miniWidth: pill.showLauncher ? 300 : (showingWorkspace ? 240 : 100)
-    property real miniHeight: 20 // Chiều cao khi thu nhỏ (notch)
+    // Define mini width based on states
+    readonly property real miniWidth: showLauncher ? 300 : 100
+    readonly property real miniHeight: 20 // Chiều cao khi thu nhỏ (notch)
     
     onIsMiniChanged: {
         if (isMini && root) {
@@ -155,7 +265,6 @@ Item {
         anchors.centerIn: parent
         isMini: pill.isMini
         isShrinking: pill.isShrinking
-        showingWorkspace: pill.showingWorkspace
         showLauncher: pill.showLauncher
         fontFamily: root ? root.fontFamily : "sans-serif"
     }
@@ -201,29 +310,18 @@ Item {
         Keys.onDownPressed: { if (pill.appLauncherItem && pill.appLauncherItem.selectedIndex < pill.appLauncherItem.filteredApps.length - 1) pill.appLauncherItem.selectedIndex++ }
     }
     
-    // Focus search input on show
-    onShowLauncherChanged: {
-        if (showLauncher) {
-            launcherSearchInput.forceActiveFocus()
-        }
-    }
+    // Focus search input on show is now handled in onShowLauncherChanged
+
     
     // Clear search text from outside
     function clearSearch() {
         launcherSearchInput.text = ""
     }
 
-    WorkspaceDots {
-        anchors.centerIn: parent
-        isMini: pill.isMini
-        isShrinking: pill.isShrinking
-        showingWorkspace: pill.showingWorkspace
-        showLauncher: pill.showLauncher
-        currentWorkspaceId: pill.currentWorkspaceId
-    }
-
     MouseArea {
+        id: pillMouseArea
         anchors.fill: parent
+        hoverEnabled: true
         cursorShape: (pill.isMini && !pill.showLauncher) ? Qt.PointingHandCursor : Qt.ArrowCursor
         enabled: pill.isMini && !pill.showLauncher
         onClicked: { if (!expandAnim.running) expandAnim.start() }

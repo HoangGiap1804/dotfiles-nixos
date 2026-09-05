@@ -10,7 +10,7 @@ PanelWindow {
     anchors.left: true
     anchors.right: true
     
-    implicitHeight: 140
+    implicitHeight: 20
     color: "transparent"
     
     exclusiveZone: 0
@@ -21,13 +21,15 @@ PanelWindow {
     property bool isOpen: false
     property bool internalChange: false
     
+    property bool isFocusedMonitor: true
+    
     Brightness {
         id: brightnessTracker
         visible: false
         onBrightnessUpdated: {
             if (internalChange) return;
             dialWidget.currentValue = brightnessTracker.percent * 100
-            osdTimer.restart()
+            if (isFocusedMonitor) osdTimer.restart()
         }
     }
     
@@ -48,10 +50,10 @@ PanelWindow {
     Region { id: emptyRegion }
     Region {
         id: windowRegion
-        x: (parent.width * 0.75) - (320 / 2)
+        x: (brightnessWindow.width * 0.75) - (320 / 2)
         y: 0
         width: 320
-        height: 100
+        height: 20
     }
     mask: isOpen ? windowRegion : emptyRegion
     
@@ -59,7 +61,7 @@ PanelWindow {
 
     LinearDialWidget {
         id: dialWidget
-        x: (parent.width * 0.75) - (width / 2)
+        x: (brightnessWindow.width * 0.75) - (width / 2)
         isOpen: brightnessWindow.isOpen
         titleText: "BRIGHTNESS"
         accentColor: "#e0af68"
