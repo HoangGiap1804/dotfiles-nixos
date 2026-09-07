@@ -55,6 +55,17 @@
     cpio
     inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
+
+    # Dolphin + KDE dependencies (Nothing OS theme)
+    kdePackages.dolphin
+    kdePackages.qtsvg
+    kdePackages.kio-extras            # thumbnails, network locations
+    kdePackages.kdegraphics-thumbnailers
+    kdePackages.ffmpegthumbs          # video thumbnails
+    kdePackages.breeze-icons          # fallback icon theme
+    kdePackages.kservice              # kbuildsycoca6
+    kdePackages.xdg-desktop-portal-kde # file picker portal for Dolphin
+    darkly                            # Qt widget style (Darkly)
   ];
 
   programs.adb.enable = true;
