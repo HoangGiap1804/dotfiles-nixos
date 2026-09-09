@@ -36,8 +36,8 @@ ForegroundPositive=0,214,143
 ForegroundVisited=160,30,36
 
 [Colors:Complementary]
-BackgroundAlternate=22,22,22,200
-BackgroundNormal=18,18,18,150
+BackgroundAlternate=22,22,22,235
+BackgroundNormal=18,18,18,220
 DecorationFocus=215,25,33
 DecorationHover=42,42,42
 ForegroundActive=215,25,33
@@ -50,8 +50,8 @@ ForegroundPositive=0,214,143
 ForegroundVisited=160,30,36
 
 [Colors:Header]
-BackgroundAlternate=22,22,22,200
-BackgroundNormal=18,18,18,140
+BackgroundAlternate=22,22,22,235
+BackgroundNormal=18,18,18,210
 DecorationFocus=215,25,33
 DecorationHover=42,42,42
 ForegroundActive=215,25,33
@@ -64,8 +64,8 @@ ForegroundPositive=0,214,143
 ForegroundVisited=160,30,36
 
 [Colors:Header][Inactive]
-BackgroundAlternate=22,22,22,200
-BackgroundNormal=18,18,18,140
+BackgroundAlternate=22,22,22,235
+BackgroundNormal=18,18,18,210
 DecorationFocus=215,25,33
 DecorationHover=42,42,42
 ForegroundActive=215,25,33
@@ -120,8 +120,8 @@ ForegroundPositive=0,214,143
 ForegroundVisited=160,30,36
 
 [Colors:Window]
-BackgroundAlternate=22,22,22,200
-BackgroundNormal=18,18,18,150
+BackgroundAlternate=22,22,22,235
+BackgroundNormal=18,18,18,220
 DecorationFocus=215,25,33
 DecorationHover=42,42,42
 ForegroundActive=215,25,33
@@ -141,7 +141,7 @@ XftAntialias=true
 XftHintStyle=hintslight
 XftSubPixel=rgb
 font=Inter Variable,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
-fixed=JetBrainsMono NF,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+fixed=Maple Mono NF,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
 smallestReadableFont=Inter Variable,8,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
 toolBarFont=Inter Variable,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
 menuFont=Inter Variable,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1

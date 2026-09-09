@@ -1,12 +1,12 @@
 [Icon Theme]
 Name=nqim
-Comment=nqim theme - white glyphs on dark squircles (file manager chrome)
-Inherits=Papirus-Dark,Qogir-Dark,breeze-dark,hicolor
+Comment=nqim theme - dark squircle folder icons
+Inherits=Papirus-Dark,breeze-dark,hicolor
 DisplayDepth=32
 Example=folder
 FollowsColorScheme=false
 
-DesktopDefault=48
+DesktopDefault=128
 DesktopSizes=16,22,32,48,64,128,256
 ToolbarDefault=22
 ToolbarSizes=16,22,32,48
@@ -14,12 +14,12 @@ MainToolbarDefault=22
 MainToolbarSizes=16,22,32,48
 SmallDefault=16
 SmallSizes=16,22,32,48
-PanelDefault=48
+PanelDefault=128
 PanelSizes=16,22,32,48,64,128,256
-DialogDefault=32
+DialogDefault=48
 DialogSizes=16,22,32,48,64,128,256
 
-Directories=scalable/places,128/places,128/mimetypes,22/actions
+Directories=scalable/places
 
 [scalable/places]
 Size=128
@@ -27,22 +27,3 @@ Context=Places
 Type=Scalable
 MinSize=16
 MaxSize=256
-
-[128/places]
-Size=128
-Context=Places
-Type=Scalable
-MinSize=16
-MaxSize=256
-
-[128/mimetypes]
-Size=128
-Context=MimeTypes
-Type=Scalable
-MinSize=16
-MaxSize=256
-
-[22/actions]
-Size=22
-Context=Actions
-Type=Fixed

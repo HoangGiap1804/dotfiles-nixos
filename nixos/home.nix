@@ -61,6 +61,9 @@
     [InformationPanel]
     previewsShown=true
     showHovered=true
+
+    [PreviewSettings]
+    Plugins=appimagethumbnail,audiothumbnail,blenderthumbnail,comicbookthumbnail,djvuthumbnail,ebookthumbnail,exrthumbnail,fontthumbnail,gsthumbnail,imagethumbnail,jpegthumbnail,kraorathumbnail,magiclanternthumbnail,mobithumbnail,moviethumbnail,msthumbnail,opendocumentthumbnail,pdfthumbnail,svgthumbnail,windowsexethumbnail,windowsimagethumbnail,xdgthumbnail,rawthumbnail
   '';
 
   # Portal config — file picker uses KDE (Dolphin) then GTK fallback
@@ -128,8 +131,8 @@
     fastfetch
     quickshell
     nerd-fonts.hack
-    nerd-fonts.jetbrains-mono  # JetBrainsMono NF (nqim OS)
-    inter                      # Inter Variable font (nqim OS)
+    maple-mono.NF                # Maple Mono NF (monospace)
+    inter                        # Inter Variable font (nqim OS)
     swww
     jetbrains.idea-ultimate
     lazydocker
@@ -138,6 +141,13 @@
     drawio
     libreoffice
     # nautilus  # replaced by Dolphin
+
+    # Dolphin archive integration (right-click extract/compress)
+    kdePackages.ark              # GUI + Dolphin context menu
+    libarchive                   # tar.gz, tar.bz2, tar.xz, tar.zst
+    p7zip                        # .7z
+    zip                          # create .zip
+    unrar                        # .rar (unfree)
     obs-studio
     openssl
     stripe-cli
@@ -173,6 +183,10 @@
     inotify-tools
     cloudflared
     envsubst
+
+    # Hyprland lock screen
+    hyprlock
+    hypridle
   ];
 
 }
