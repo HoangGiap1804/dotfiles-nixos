@@ -140,11 +140,11 @@ shadeSortColumn=true
 XftAntialias=true
 XftHintStyle=hintslight
 XftSubPixel=rgb
-font=Inter Variable,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+font=Maple Mono NF,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
 fixed=Maple Mono NF,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
-smallestReadableFont=Inter Variable,8,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
-toolBarFont=Inter Variable,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
-menuFont=Inter Variable,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+smallestReadableFont=Maple Mono NF,8,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+toolBarFont=Maple Mono NF,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+menuFont=Maple Mono NF,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
 
 [Icons]
 Theme=nqim
