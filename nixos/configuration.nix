@@ -18,6 +18,35 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # ── Swap & Memory Optimization (24GB RAM) ──────────────────────────────
+  # Tiered swap: zram (tầng 1, nhanh) → swapfile (tầng 2, fallback)
+  # Linux tự động dùng theo priority: cao hơn → được dùng trước
+
+  # Tầng 1: zram — swap nén ngay trong RAM, tốc độ cao, ưu tiên 100 (mặc định)
+  zramSwap = {
+    enable = true;
+    algorithm = "zstd";       # Nhanh + tỉ lệ nén tốt nhất
+    memoryPercent = 25;       # ~6GB zram (25% × 24GB)
+  };
+
+  # Tầng 2: swapfile — fallback ra ổ đĩa, chỉ dùng khi zram hết
+  swapDevices = [{
+    device   = "/swapfile";
+    size     = 4 * 1024;     # 4GB — đủ làm lưới an toàn, không tốn quá nhiều
+    priority = 0;            # Ưu tiên thấp hơn zram (100) → dùng sau cùng
+  }];
+
+  # Kernel VM tuning
+  boot.kernel.sysctl = {
+    # Tránh dùng swap sớm khi còn nhiều RAM (0–100, thấp = ít swap hơn)
+    "vm.swappiness"             = 10;
+    # Giảm áp lực xóa cache file — giữ cache lâu hơn cho trải nghiệm mượt
+    "vm.vfs_cache_pressure"     = 50;
+    # Tối ưu dirty page writeback — tránh giật khi flush dữ liệu ra đĩa
+    "vm.dirty_ratio"            = 10;
+    "vm.dirty_background_ratio" = 5;
+  };
+
   services.upower.enable = true;
 
   services.udisks2.enable = true;     # Quản lý ổ đĩa
