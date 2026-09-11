@@ -1,6 +1,13 @@
 return {
     "nvimtools/none-ls.nvim",
+    dependencies = {
+        "jay-babu/mason-null-ls.nvim",
+    },
     config = function()
+        require("mason-null-ls").setup({
+            ensure_installed = { "stylua", "prettier" },
+            automatic_installation = true,
+        })
         local null_ls = require("null-ls")
         null_ls.setup({
             sources = {

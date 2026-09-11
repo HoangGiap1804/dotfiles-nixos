@@ -16,6 +16,7 @@ return {
 				"dart",
 				"tsx",
 				"html",
+				"css",
 				"java",
 				"json",
 				"zig",
