@@ -95,9 +95,8 @@
     kdePackages.kservice              # kbuildsycoca6
     kdePackages.xdg-desktop-portal-kde # file picker portal for Dolphin
     darkly                            # Qt widget style (Darkly)
+    android-tools
   ];
-
-  programs.adb.enable = true;
 
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [

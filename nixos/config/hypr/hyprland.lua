@@ -49,7 +49,7 @@ local wallpaper   = "~/dotfiles/wallpaper/random_wallpaper.sh"
 hl.on("hyprland.start", function () 
     hl.exec_cmd("fcitx5")
     hl.exec_cmd("hyprpaper")
-    hl.exec_cmd("swww-daemon")
+    hl.exec_cmd("awww-daemon")
     hl.exec_cmd("quickshell")
     hl.exec_cmd("xmodmap -e \"keycode 66 = Escape\"")
     hl.exec_cmd("udiskie --automount --notify")

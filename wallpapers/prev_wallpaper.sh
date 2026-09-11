@@ -23,7 +23,7 @@ fi
 IMG=$(sed -n "$((INDEX + 1))p" "$LIST")
 
 # Đổi wallpaper
-swww img "$IMG" \
+awww img "$IMG" \
   --transition-type wipe \
   --transition-duration 1 \
   --transition-fps 60

@@ -21,7 +21,7 @@ if [ -z "$IMG" ]; then
 fi
 
 # Đổi wallpaper bằng swww
-swww img "$IMG" \
+awww img "$IMG" \
   --transition-type wipe \
   --transition-duration 1 \
   --transition-fps 60

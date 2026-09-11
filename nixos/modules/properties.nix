@@ -18,11 +18,12 @@
   };
 
   i18n.inputMethod = {
-    enabled = "fcitx5";
+    enable = true;
+    type = "fcitx5";
     fcitx5.addons = with pkgs; [
-      fcitx5-unikey     # Gõ tiếng Việt
+      qt6Packages.fcitx5-unikey     # Gõ tiếng Việt
       fcitx5-gtk
-      fcitx5-configtool # Giao diện cấu hình
+      kdePackages.fcitx5-configtool # Giao diện cấu hình
     ];
   };
 }

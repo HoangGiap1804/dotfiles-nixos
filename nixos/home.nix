@@ -107,6 +107,7 @@
 
     gtk3.extraCss = builtins.readFile ./config/nqim-theme/gtk/gtk-3.0/gtk.css;
     gtk4.extraCss = builtins.readFile ./config/nqim-theme/gtk/gtk-4.0/gtk.css;
+    gtk4.theme = config.gtk.theme;
   };
 
   home.pointerCursor = {
@@ -121,7 +122,7 @@
     wget
     curl
     htop
-    neofetch  
+    fastfetch
     rofi
     kitty
     ripgrep
@@ -133,8 +134,8 @@
     nerd-fonts.hack
     maple-mono.NF                # Maple Mono NF (monospace)
     inter                        # Inter Variable font (nqim OS)
-    swww
-    jetbrains.idea-ultimate
+    awww
+    jetbrains.idea
     lazydocker
     vscode
     postman
@@ -150,8 +151,6 @@
     unrar                        # .rar (unfree)
     obs-studio
     openssl
-    stripe-cli
-    opencode
     mission-center
     brightnessctl
     # Flutter development
@@ -166,14 +165,10 @@
     gnome-tweaks
     arc-theme
 
-    blender
-
     nodejs_22
     pnpm 
 
     scrcpy
-
-    vlc
 
     jdk17
     maven
@@ -181,12 +176,13 @@
 
     libnotify
     inotify-tools
-    cloudflared
     envsubst
 
     # Hyprland lock screen
     hyprlock
     hypridle
+
+    google-chrome
   ];
 
 }
