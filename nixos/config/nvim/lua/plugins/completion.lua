@@ -10,6 +10,14 @@ return {
         },
     },
     {
+        "roobert/tailwindcss-colorizer-cmp.nvim",
+        config = function()
+            require("tailwindcss-colorizer-cmp").setup({
+                color_square_width = 2,
+            })
+        end,
+    },
+    {
         "hrsh7th/nvim-cmp",
         config = function()
             local cmp = require("cmp")
@@ -20,6 +28,9 @@ return {
                     expand = function(args)
                         require("luasnip").lsp_expand(args.body)
                     end,
+                },
+                formatting = {
+                    format = require("tailwindcss-colorizer-cmp").formatter
                 },
                 window = {
                     completion = cmp.config.window.bordered(),

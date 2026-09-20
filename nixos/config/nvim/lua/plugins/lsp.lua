@@ -19,6 +19,8 @@ return {
                     "cssls",
                     "tailwindcss",
                     "emmet_language_server",
+                    "intelephense",
+                    "volar",
                 },
             })
         end,
@@ -63,7 +65,15 @@ return {
 
             lspconfig.emmet_language_server.setup({
                 capabilities = capabilities,
-                filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "pug", "typescriptreact" },
+                filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "pug", "typescriptreact", "vue" },
+            })
+
+            lspconfig.intelephense.setup({
+                capabilities = capabilities,
+            })
+
+            lspconfig.volar.setup({
+                capabilities = capabilities,
             })
 
             vim.keymap.set("n", "K", vim.lsp.buf.hover, {})

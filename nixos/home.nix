@@ -183,6 +183,10 @@
     hypridle
 
     google-chrome
+
+    # PHP & Laravel
+    php
+    phpPackages.composer
   ];
 
 }
