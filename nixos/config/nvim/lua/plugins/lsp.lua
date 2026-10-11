@@ -20,7 +20,7 @@ return {
                     "tailwindcss",
                     "emmet_language_server",
                     "intelephense",
-                    "volar",
+                    "vue_ls",
                 },
             })
         end,
@@ -37,6 +37,16 @@ return {
             
             lspconfig.ts_ls.setup({
                 capabilities = capabilities,
+                init_options = {
+                    plugins = {
+                        {
+                            name = "@vue/typescript-plugin",
+                            location = vim.fn.stdpath("data") .. "/mason/packages/vue-language-server/node_modules/@vue/language-server",
+                            languages = { "vue" },
+                        },
+                    },
+                },
+                filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
             })
 
             lspconfig.eslint.setup({
@@ -49,6 +59,16 @@ return {
 
             lspconfig.clangd.setup({
                 capabilities = capabilities,
+                cmd = {
+                    "clangd",
+                    "--background-index",
+                    "--clang-tidy",
+                    "--header-insertion=iwyu",
+                    "--completion-style=detailed",
+                    "--function-arg-placeholders",
+                    "--fallback-style=llvm",
+                    "--query-driver=/nix/store/*-gcc-*/bin/g++,/nix/store/*-gcc-wrapper-*/bin/g++,/**/*",
+                },
             })
 
             lspconfig.html.setup({
@@ -72,7 +92,7 @@ return {
                 capabilities = capabilities,
             })
 
-            lspconfig.volar.setup({
+            lspconfig.vue_ls.setup({
                 capabilities = capabilities,
             })
 

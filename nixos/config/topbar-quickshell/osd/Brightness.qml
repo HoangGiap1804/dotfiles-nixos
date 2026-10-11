@@ -10,6 +10,9 @@ RowLayout {
 
     property int brightness: 0
     property int maxBrightness: 100
+    property color colorFg: "#ffffff"
+    property string fontFamily: "sans-serif"
+    property string nerdFontFamily: "sans-serif"
     // backlight device dir name, e.g. "intel_backlight" or "amdgpu_bl1"
     property string backlightDevice: ""
     readonly property real percent: maxBrightness > 0 ? brightness / maxBrightness : 0
@@ -87,15 +90,15 @@ RowLayout {
     // icon
     Text {
         text: root.icon
-        color: Theme.fg
-        font { family: Theme.nerdFontFamily; pixelSize: 10 }
+        color: root.colorFg
+        font { family: root.nerdFontFamily; pixelSize: 10 }
     }
 
     // percentage
     Text {
         text: Math.round(root.percent * 100) + "%"
-        color: Theme.fg
-        font { family: Theme.fontFamily; pixelSize: 10; weight: 500 }
+        color: root.colorFg
+        font { family: root.fontFamily; pixelSize: 10; weight: 500 }
     }
 }
 

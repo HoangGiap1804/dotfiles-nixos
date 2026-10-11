@@ -48,7 +48,7 @@ ShellRoot {
     signal toggleLauncher(string targetMonitor)
     
     property string focusedMonitorName: ""
-    property int _fwId: Quickshell.Hyprland.focusedWorkspace ? Quickshell.Hyprland.focusedWorkspace.id : 0
+    property int _fwId: Hyprland.focusedWorkspace ? Hyprland.focusedWorkspace.id : 0
     on_FwIdChanged: {
         focusedMonitorProc.running = true
     }

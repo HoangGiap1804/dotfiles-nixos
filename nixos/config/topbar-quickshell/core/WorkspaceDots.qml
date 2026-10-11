@@ -23,9 +23,9 @@ Row {
     Repeater {
         model: wsDots.monitorWorkspaces
         Rectangle {
-            property int wsId: modelData.id
+            property int wsId: modelData && modelData.id !== undefined ? modelData.id : 0
             property bool isActive: wsId === wsDots.currentWorkspaceId
-            property bool hasWindows: modelData.windows > 0
+            property bool hasWindows: modelData && modelData.windows !== undefined ? modelData.windows > 0 : false
             
             width: isActive ? 24 : 16
             height: 16

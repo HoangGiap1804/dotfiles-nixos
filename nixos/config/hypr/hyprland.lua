@@ -66,6 +66,7 @@ end)
 
 hl.env("XCURSOR_SIZE", "30")
 hl.env("HYPRCURSOR_SIZE", "30")
+hl.env("QT_QPA_PLATFORMTHEME", "kde")
 
 
 -----------------------

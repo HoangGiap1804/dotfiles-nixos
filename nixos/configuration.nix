@@ -94,9 +94,14 @@
     kdePackages.breeze-icons          # fallback icon theme
     kdePackages.kservice              # kbuildsycoca6
     kdePackages.xdg-desktop-portal-kde # file picker portal for Dolphin
+    kdePackages.plasma-integration    # Qt6 KDE platform theme
     darkly                            # Qt widget style (Darkly)
     android-tools
   ];
+
+  environment.sessionVariables = {
+    QT_QPA_PLATFORMTHEME = "kde";
+  };
 
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [

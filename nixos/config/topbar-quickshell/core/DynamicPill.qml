@@ -49,7 +49,8 @@ Item {
                     var activeWsId = null;
                     for (var i = 0; i < monitors.length; i++) {
                         if (monitors[i].name === pill.monitorName) {
-                            activeWsId = monitors[i].activeWorkspace.id;
+                            var aws = monitors[i].activeWorkspace;
+                            activeWsId = aws.id !== undefined ? aws.id : parseInt(aws.name);
                             break;
                         }
                     }
@@ -59,9 +60,12 @@ Item {
                     
                     for (var j = 0; j < workspaces.length; j++) {
                         if (workspaces[j].monitor === pill.monitorName) {
-                            mWs.push({ id: workspaces[j].id, windows: workspaces[j].windows });
-                            if (workspaces[j].id === activeWsId) {
-                                winCount = workspaces[j].windows;
+                            var ws = workspaces[j];
+                            var wId = ws.id !== undefined ? ws.id : parseInt(ws.name);
+                            if (isNaN(wId)) continue;
+                            mWs.push({ id: wId, windows: ws.windows });
+                            if (wId === activeWsId) {
+                                winCount = ws.windows;
                             }
                         }
                     }
@@ -70,7 +74,7 @@ Item {
                     
                     pill.monitorWorkspaces = mWs;
                     
-                    if (activeWsId !== null) {
+                    if (activeWsId !== null && activeWsId !== undefined && !isNaN(activeWsId)) {
                         pill.currentWorkspaceId = activeWsId;
                         pill.activeWindowCount = winCount;
                     }

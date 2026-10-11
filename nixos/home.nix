@@ -64,7 +64,15 @@
 
     [PreviewSettings]
     Plugins=appimagethumbnail,audiothumbnail,blenderthumbnail,comicbookthumbnail,djvuthumbnail,ebookthumbnail,exrthumbnail,fontthumbnail,gsthumbnail,imagethumbnail,jpegthumbnail,kraorathumbnail,magiclanternthumbnail,mobithumbnail,moviethumbnail,msthumbnail,opendocumentthumbnail,pdfthumbnail,svgthumbnail,windowsexethumbnail,windowsimagethumbnail,xdgthumbnail,rawthumbnail
+
+    [UiSettings]
+    ColorScheme=nqim
   '';
+
+  qt = {
+    enable = true;
+    platformTheme.name = "kde";
+  };
 
   # Portal config — file picker uses KDE (Dolphin) then GTK fallback
   home.file.".config/xdg-desktop-portal/hyprland-portals.conf".source =

@@ -9,6 +9,7 @@ return {
 			-- add language you want to highlight in code
 			ensure_installed = {
 				"c",
+				"cpp",
 				"lua",
 				"vim",
 				"javascript",
