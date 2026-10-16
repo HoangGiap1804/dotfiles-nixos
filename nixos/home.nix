@@ -157,7 +157,6 @@
     p7zip                        # .7z
     zip                          # create .zip
     unrar                        # .rar (unfree)
-    obs-studio
     openssl
     mission-center
     brightnessctl
