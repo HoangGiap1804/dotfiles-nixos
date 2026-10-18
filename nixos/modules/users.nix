@@ -12,6 +12,7 @@
       "disk"
       "adbusers"
       "kvm"
+      "docker"
     ];
     shell = pkgs.fish;
     packages = with pkgs; [];
