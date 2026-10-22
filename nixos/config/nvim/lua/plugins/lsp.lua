@@ -9,6 +9,7 @@ return {
         "williamboman/mason-lspconfig.nvim",
         config = function()
             require("mason-lspconfig").setup({
+                automatic_enable = false,
                 ensure_installed = {
                     "lua_ls",
                     "ts_ls",
@@ -20,7 +21,6 @@ return {
                     "tailwindcss",
                     "emmet_language_server",
                     "intelephense",
-                    "vue_ls",
                 },
             })
         end,
@@ -57,8 +57,12 @@ return {
                 capabilities = capabilities,
             })
 
+            local clangd_capabilities = vim.tbl_deep_extend("force", capabilities, {
+                offsetEncoding = { "utf-16" },
+            })
+
             lspconfig.clangd.setup({
-                capabilities = capabilities,
+                capabilities = clangd_capabilities,
                 cmd = {
                     "clangd",
                     "--background-index",
@@ -67,7 +71,12 @@ return {
                     "--completion-style=detailed",
                     "--function-arg-placeholders",
                     "--fallback-style=llvm",
-                    "--query-driver=/nix/store/*-gcc-*/bin/g++,/nix/store/*-gcc-wrapper-*/bin/g++,/**/*",
+                    "--query-driver=/run/current-system/sw/bin/*,/etc/profiles/per-user/*/bin/*,/nix/store/*-gcc-*/bin/*,/nix/store/*-clang-*/bin/*,**/*",
+                },
+                init_options = {
+                    usePlaceholders = true,
+                    completeUnimported = true,
+                    clangdFileStatus = true,
                 },
             })
 
@@ -92,13 +101,13 @@ return {
                 capabilities = capabilities,
             })
 
-            lspconfig.vue_ls.setup({
-                capabilities = capabilities,
-            })
-
             vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
             vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
             vim.keymap.set({ "n" }, "<leader>ca", vim.lsp.buf.code_action, {})
+            vim.keymap.set("n", "<leader>ch", "<cmd>ClangdSwitchSourceHeader<CR>", { desc = "Switch C/C++ Header/Source" })
+            vim.keymap.set("n", "<leader>th", function()
+                vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+            end, { desc = "Toggle Inlay Hints" })
         end,
     },
 }

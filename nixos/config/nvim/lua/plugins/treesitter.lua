@@ -10,6 +10,9 @@ return {
 			ensure_installed = {
 				"c",
 				"cpp",
+				"make",
+				"cmake",
+				"diff",
 				"lua",
 				"vim",
 				"javascript",

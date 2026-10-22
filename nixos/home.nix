@@ -160,6 +160,15 @@
     openssl
     mission-center
     brightnessctl
+    # C/C++ development & build tools
+    gcc
+    gnumake
+    clang-tools
+    bear
+    gdb
+    valgrind
+    python3
+
     # Flutter development
     flutter
     android-studio

@@ -5,7 +5,7 @@ return {
     },
     config = function()
         require("mason-null-ls").setup({
-            ensure_installed = { "stylua", "prettier", "clang-format" },
+            ensure_installed = { "stylua", "prettier" },
             automatic_installation = true,
         })
         local null_ls = require("null-ls")
